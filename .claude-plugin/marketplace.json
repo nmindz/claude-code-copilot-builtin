@@ -1,0 +1,21 @@
+{
+  "name": "claude-code-copilot-builtin",
+  "metadata": {
+    "description": "Compatibility plugin that exposes PinchTab MCP and reroutes Claude Code web built-ins in GitHub Copilot-backed sessions."
+  },
+  "owner": {
+    "name": "Evandro Camargo"
+  },
+  "plugins": [
+    {
+      "name": "copilot-builtin-guard",
+      "source": "./",
+      "description": "Exposes PinchTab MCP and reroutes WebFetch/WebSearch to PinchTab in Copilot-backed Claude Code sessions.",
+      "version": "0.3.0",
+      "author": {
+        "name": "Evandro Camargo"
+      },
+      "category": "compatibility"
+    }
+  ]
+}

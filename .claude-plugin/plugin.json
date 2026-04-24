@@ -1,0 +1,64 @@
+{
+  "name": "copilot-builtin-guard",
+  "description": "Intercepts Claude Code web built-ins in GitHub Copilot-backed sessions and reroutes them to PinchTab MCP.",
+  "version": "0.3.0",
+  "author": {
+    "name": "Evandro Camargo"
+  },
+  "keywords": [
+    "copilot",
+    "github-copilot",
+    "hooks",
+    "webfetch",
+    "websearch",
+    "pinchtab",
+    "mcp",
+    "compatibility"
+  ],
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/ensure-pinchtab-bridge.js\"",
+            "timeout": 20,
+            "statusMessage": "Ensuring PinchTab bridge is running..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/block-web-bypass.js\"",
+            "timeout": 5,
+            "statusMessage": "Preventing web-fetch bypass..."
+          }
+        ]
+      },
+      {
+        "matcher": "WebFetch|WebSearch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/block-unsupported-builtins.js\"",
+            "timeout": 5,
+            "statusMessage": "Mapping Copilot web tool to PinchTab..."
+          }
+        ]
+      }
+    ]
+  },
+  "mcpServers": {
+    "pinchtab": {
+      "type": "stdio",
+      "command": "pinchtab",
+      "args": ["mcp"]
+    }
+  }
+}
