@@ -1,7 +1,7 @@
 {
   "name": "copilot-builtin-guard",
-  "description": "Intercepts Claude Code web built-ins in GitHub Copilot-backed sessions and reroutes them to PinchTab MCP.",
-  "version": "0.3.0",
+  "description": "Smooths GitHub Copilot-backed Claude Code: tier-aliasing guard so workflows work, Copilot quota command, and web built-in interception rerouted to PinchTab MCP.",
+  "version": "0.4.0",
   "author": {
     "name": "Evandro Camargo"
   },
@@ -20,6 +20,12 @@
       {
         "matcher": "",
         "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/check-model-config.js\"",
+            "timeout": 5,
+            "statusMessage": "Checking Copilot model tier config..."
+          },
           {
             "type": "command",
             "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/ensure-pinchtab-bridge.js\"",
