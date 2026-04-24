@@ -98,6 +98,3 @@ Optional env vars:
 
 If unset, default intercepted tools are `WebFetch,WebSearch`.
 
-## Local testing
-
-This plugin is intended to be enabled only in `/Users/evandro.camargo/.claude/settings.copilot.json`.
